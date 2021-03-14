@@ -4,44 +4,45 @@ module.exports = function check(str, bracketsConfig) {
   let count = 0;
   let arrOpen = [];
   let arrClose = [];
-  console.log(str);
-  let result;           
+  let arr = [];
+  let result;
+  let j = 0;
+ console.log(`our string ${str}`);
+// const config1 = [['(', ')']]; str.length count=${count}
+// const config2 = [['(', ')'], ['[', ']']];
+// const config3 = [['(', ')'], ['[', ']'], ['{', '}']];
+// const config4 = [['|', '|']];
+// const config5 = [['(', ')'], ['|', '|']];
+// const config6 = [['1', '2'], ['3', '4'], ['5', '6'], ['7', '7'], ['8', '8']];
+// const config7 = [['(', ')'], ['[', ']'], ['{', '}'], ['|', '|']];
 
-    for (let i = 0; i < bracketsConfig.length; i++) {
-        arrOpen.push(bracketsConfig[i][0]);
-        arrClose.push(bracketsConfig[i][1]);
-    }
-
-  
-    
-      for (let j = 0; j < bracketsConfig.length;  j++) {
-        
-       
-        count = 0;
-          
-         for (let i = 0; i < str.length; i++) {
+  for (let i = 0; i < bracketsConfig.length; i++) {
+      arrOpen.push(bracketsConfig[i][0]);
+      arrClose.push(bracketsConfig[i][1]);
       
-            if (str[i] === arrOpen[j]) {
-               count++;
-              
-            } else if (str[i] === arrClose[j]) {
-               count--;
-              
-            }
-         
-          if (count < 0 ) {
-            result = false;
-            console.log(result);
-             return result;
-               break; 
-          } else if (count % 2 > 0 && i == str.length-1){
-            result = false;
-            return result;
-        }
-          }  
-          
-         }
-         result = true;
-            console.log(result);
-         return result;
-        }
+  }
+ 
+  for (let i = 0; i < str.length; i++) {
+    
+           
+           if (str[i] === arrOpen[arrOpen.indexOf(str[i])] && str[i] === arrClose[arrClose.indexOf(str[i])]) {
+             if (str[i] === arr[arr.length-1]) {
+               arr.pop();
+             }  else {
+                arr.push(str[i])  
+             }
+           }
+
+           if (str[i] === arrOpen[arrOpen.indexOf(str[i])]) {
+                arr.push(str[i]);
+           }  
+           
+           if (str[i] === arrClose[arrClose.indexOf(str[i])]) {
+                if (arr[arr.length-1] === arrOpen[arrClose.indexOf(str[i])]) {
+                    arr.pop();
+                } else return false;
+            } 
+  }
+    return (arr.length == 0)
+  } 
+        
